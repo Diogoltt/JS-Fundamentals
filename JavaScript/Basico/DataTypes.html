@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Aula de Operador</title>
+
+    <link rel="shortcuts icon" href="https://www.pngitem.com/pimgs/m/85-858684_dragon-ball-icon-png-transparent-png.png">
+</head>
+<body>
+    <script>
+        // Tipos de dados no Javascript:
+        let nome = "Joao";
+        document.write(`O nome é: ${nome} <br>`); // string
+        document.write(`O tipo de dado é: ${typeof nome} <br>`); // string
+
+        let idade = 20;
+        document.write(`A idade é: ${idade} <br>`); // number
+        document.write(`O tipo de dado é: ${typeof idade} <br>`); // number
+
+        let verdadeiro = true;
+        document.write(`O valor é: ${verdadeiro} <br>`); // boolean
+        document.write(`O tipo de dado é: ${typeof verdadeiro} <br>`); // boolean
+
+        let indefinido; // é valor padrão que é dado por não ser inicializado
+        document.write(`O valor é: ${indefinido} <br>`); // undefined
+        document.write(`O tipo de dado é: ${typeof indefinido} <br>`); // undefined
+
+        let nulo = null; // é um valor nulo, ou seja, não tem valor
+        document.write(`O valor é: ${nulo} <br>`); // object que esta com nulo
+        document.write(`O tipo de dado é: ${typeof nulo} <br>`); // object que esta com nulo
+
+        let objeto = { nome: "Joao", idade: 20 }; // objeto
+        document.write(`O valor é: ${objeto} <br>`); // object
+        document.write(`O tipo de dado é: ${typeof objeto} <br>`); // object
+
+        let lista = ['Joao', 20, true]; // array
+        document.write(`O valor é: ${lista} <br>`); // object
+        document.write(`O tipo de dado é: ${typeof lista} <br>`); // object
+
+        let listaDupla = [[1, 2], [3, 4]]; // array
+        document.write(`O valor é: ${listaDupla} <br>`); // object
+        document.write(`O tipo de dado é: ${typeof listaDupla} <br>`); // object
+
+        // Tipos de Funções
+        // Função tradicional
+        function soma(a, b) {
+            return a + b;
+        }
+        document.write(`A soma é: ${soma(10, 20)} <br>`); // number
+
+        // Função sem retorno
+        function semRetorno(a, b) {
+            document.write(`A soma é: ${a + b} <br>`); // number
+        }
+
+        semRetorno(10, 20); // number
+
+        // Função anônima, que é uma função que não tem nome e é atribuída a uma variável
+        let somaAnonima = function (a, b) {
+            return a + b;
+        }
+
+        // Função anonima com arrow function, que é uma função que não tem nome e é atribuída a uma variável
+        let somaArrow = (a, b) => {
+            return a + b;
+        }
+
+        document.write(`A soma é: ${somaArrow(10, 20)} <br>`); // number
+
+        // Função com retorno implicito
+        let somaImplicita = (a, b) => a + b; // função com retorno implicito
+        // Outra forma
+        let respoden = () => {
+            document.write(`Oi sei la <br>`); // number
+        } // função com retorno implicito
+
+        // Função com um unico parametro
+        let quadrado = a => a * a; // função com um unico parametro
+        document.write(`O quadrado é: ${quadrado(10)} <br>`); // number
+    </script>
+</body>
+</html>

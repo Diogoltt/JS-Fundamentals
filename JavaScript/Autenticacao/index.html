@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login com hCaptcha</title>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+        }
+
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Login de Verificação hCaptcha</h2>
+
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Seu Email" required>
+        <input type="password" id="password" placeholder="Sua Senha" required>
+
+        <!-- hCaptcha -->
+        <div class="h-captcha" data-sitekey="your-hcaptcha-site-key"></div>
+        
+        <button type="submit">Entrar</button>
+    </form>
+    <div id="resposta"></div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const hcaptchaResponse = document.querySelector('[name="h-captcha-response"]').value;
+
+            if (!hcaptchaResponse) {
+                alert('Por favor, verifique se você não é um robô.');
+                return; // Retorna se o CAPTCHA não foi preenchido
+            }
+
+            // Simulando login aprovado
+            const usuario = {
+                email: email,
+                status: 'Aprovado',
+            };
+
+            // Gerar um JSON de login
+            const blob = new Blob([JSON.stringify(usuario, null, 2)], {
+                type: 'application/json'
+            }); 
+            const link = document.createElement('a'); 
+            link.href = URL.createObjectURL(blob);
+            link.download = 'login.json';
+            link.click();
+        });
+    </script>
+</body>
+
+</html>

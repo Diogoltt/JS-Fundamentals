@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TS no Navagador</title>
+    <!-- Carrega e compila o type -->
+    <script src="https://unpkg.com/typescript@latest/lib/typescript.js"></script>
+    <!-- Transforma em verçoes mais antigas -->
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+</head>
+
+<body>
+    <h1> Ts direto no navegador</h1>
+    <input type="text" id="nome" placeholder="Digite seu nome">
+    <button id="btn">Clique aqui</button>
+
+    <!-- script ts com o tratamento do exemplo passado -->
+    <script type="text/typescript">
+    const input = document.getElementById("nome");  
+    if (input && input instanceof HTMLInputElement) {      
+        const nome = input.value.trim(); 
+ 
+        if (nome === "") {      
+            alert("Por favor, digite seu nome.");
+        } else {
+            console.error("Elemento com id 'saudacao' não encontrado.");
+        }
+    }
+     </script>
+
+     <!-- Tranformar ele em TS que foi construido, transforma em JS -->
+      <script>
+        const tsCript = document.querySelector('script[type="text/typescript"]');
+        const jsCode = ts.transpile(tsCript.textContent);
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.textContent = jsCode;
+        document.body.appendChild(script);
+      </script>
+
+</body>
+
+</html>

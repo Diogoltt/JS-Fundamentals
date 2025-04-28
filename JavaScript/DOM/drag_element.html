@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag Element</title>
+
+    <style>
+        #draggable {
+            width: 200px;
+            height: 200px;
+            background-color: cyan;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const draggable = document.getElementById('draggable');
+            let colorInterval;
+
+            draggable.addEventListener('mousedown', (event) => {
+                let shiftX = event.clientX - draggable.getBoundingClientRect().left;
+
+                let shiftY = event.clientY - draggable.getBoundingClientRect().top;
+
+                draggable.style.position = 'absolute';
+                draggable.style.zIndex = 1000;
+                document.body.append(draggable);
+
+                moveAt(event.pageX, event.pageY);
+
+                function getRandomColor () {
+                    return '#' + Math.floor(Math.random()*16777215).toString(16);
+                }
+
+                colorInterval = setInterval(() => {
+                    draggable.style.background = getRandomColor();
+                }, 20);
+
+                function moveAt(pageX, pageY) {
+                    draggable.style.left = pageX - shiftX + 'px';
+                    draggable.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+
+                draggable.onmouseup = function () {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    draggable.onmouseup = null;
+
+                    clearInterval(colorInterval);
+
+                    draggable.style.background = 'cyan';
+                };
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="draggable";></div> 
+</body>
+
+</html>

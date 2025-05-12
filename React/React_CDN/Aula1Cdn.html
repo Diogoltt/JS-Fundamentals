@@ -44,6 +44,10 @@
             return <h1>Olá, {nome}!</h1>
         }
 
+        function MostrarNumero({ numero }) {
+            return <p>O número é: {numero}</p>
+        }
+
         function Contador() {
             const [contador, setContador] = useState(0);
             return (
@@ -122,6 +126,7 @@
                     <Saudacao nome="Diogo" />
                     <Contador />
                     <ListaTarefas />
+                    <MostrarNumero numero="5" />
                 </div>
             )
         }

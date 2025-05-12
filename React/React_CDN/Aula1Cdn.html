@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1 - React (CDN)</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .concluida {
+            text-decoration: line-through;
+            color: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function Saudacao({ nome }) {
+            return <h1>Olá, {nome}!</h1>
+        }
+
+        function Contador() {
+            const [contador, setContador] = useState(0);
+            return (
+                <div>
+                    <h2>Contador</h2>
+                    <p>{contador}</p>
+                    <button onClick={() => setContador(contador + 1)}>+1</button>
+                    <button onClick={() => setContador(contador - 1)}>-1</button>
+                </div>
+            )
+        }
+
+        function Tarefa({ tarefa, indice, onConcluir, onRemover }) {
+            return (
+                <div className={`tarefa ${tarefa.concluida ? 'concluida' : ''}`}>
+                    <span>{tarefa.texto}</span>
+                    <button onClick={() => onConcluir(indice)}>
+                        {tarefa.concluida ? 'Desmarcar' : 'Concluir'}
+                    </button>
+                    <button onClick={() => onRemover(indice)}>🗑️</button>
+                </div>
+            )
+        }
+
+        function ListaTarefas() {
+            const [tarefas, setTarefas] = useState([]);
+            const [novaTarefa, setNovaTarefa] = useState('');
+
+            const adicionarTarefa = () => {
+                if (novaTarefa.trim()) {
+                    setTarefas([...tarefas, { texto: novaTarefa, concluida: false }]);
+                    setNovaTarefa('');
+                }
+            };
+
+            const marcarTarefa = (indice) => {
+                const novasTarefas = [...tarefas];
+                novasTarefas[indice].concluida = !novasTarefas[indice].concluida;
+                setTarefas(novasTarefas);
+            };
+
+            const removerTarefa = (indice) => {
+                setTarefas(tarefas.filter((_, i) => i !== indice));
+            };
+
+            return (
+                <div>
+                    <h2>Lista de Tarefas</h2>
+                    <div>
+                        <input
+                            type="text"
+                            value={novaTarefa}
+                            onChange={(e) => setNovaTarefa(e.target.value)}
+                            placeholder="Digite uma nova tarefa"
+                        />
+                        <button onClick={adicionarTarefa}>Adicionar</button>
+                    </div>
+                    <div>
+                        {tarefas.map((tarefa, indice) => (
+                            <Tarefa
+                                key={indice}
+                                tarefa={tarefa}
+                                indice={indice}
+                                onConcluir={marcarTarefa}
+                                onRemover={removerTarefa}
+                            />
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div className="container">
+                    <Saudacao nome="Diogo" />
+                    <Contador />
+                    <ListaTarefas />
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+
+
+    </script>
+</body>
+
+</html>

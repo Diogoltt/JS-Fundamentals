@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceito 1 JSX</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        let rootElement = document.getElementById('root');
+
+        // function Welcome(props) {
+        //     return <h1>Bem vindo</h1>
+        // }
+
+        // ReactDOM.render(<Welcome />, rootElement);
+
+        function Welcome(props) {
+            return <h1>{props.name} tem {parseInt(props.idade)} anos</h1>
+        }
+
+        const App = () => {
+            return (
+                <div>
+                    <Welcome name="Diogo" idade="22" />
+                    <Welcome name="Teste" idade="10" />
+                    <Welcome name="Teste2" idade="20" />
+                    <Welcome name="Teste3" idade="30" />
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, rootElement)
+
+
+    </script>
+</body>
+
+</html>

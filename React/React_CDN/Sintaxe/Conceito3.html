@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!-- Utilizando Javascript Vanilla-->
+    <!-- <script type="text/javascript">
+        var rootElement = document.getElementById('root');
+
+        function Tick() {
+            let currentTime = new Date().toLocaleTimeString();
+            let element = `
+                <div>
+                    <h1>Agora São ${currentTime}</h1>
+                </div>
+            `;
+            rootElement.innerHTML = element;
+        }
+
+        setInterval(Tick, 1000);
+
+    </script> -->
+
+    <!-- Utilizando React -->
+    <script type="text/babel">
+        const rootElement = document.getElementById('root');
+
+        function Tick() {
+            let currentTime = new Date().toLocaleTimeString();
+            return (
+                <div>
+                    <h1>Agora são {currentTime}</h1>
+                </div>
+            );
+        }
+
+        setInterval(() => {
+            ReactDOM.render(<Tick />, rootElement);
+        }, 1000);
+    </script>
+</body>
+
+</html>

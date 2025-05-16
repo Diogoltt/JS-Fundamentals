@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 2 - Vanilla JS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        input,
+        button {
+            margin: 5px;
+            padding: 8px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .tab-button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .tab-button.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .task {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #eee;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1> Aula 2 - Vanilla </h1>
+        <section>
+            <h2> Event Listener</h2>
+            <div id="window-size"> Tamanho da tela</div>
+        </section>
+    </div>
+
+    <script>
+        // Tamanho da tela
+        function updateWindowSize() {
+            const sizeElement = document.getElementById('window-size');
+            sizeElement.textContent = `Tamanho da Janela: ${window.innerWidth}x${window.innerHeight}`;
+        }
+        // Atualiza ao carregar e ao redimensionar
+        window.addEventListener('resize', updateWindowSize);
+        updateWindowSize();
+    
+        const loginForm = document.getElementById('login-form');
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+        })
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if(!email.include('@')) {
+            document.getElementById('email-error').textContent = 'Email Inválido';
+        }
+    </script>
+</body>
+
+</html>

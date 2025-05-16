@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+            --text-color: #333;
+            --light-gray: #f9f9f9;
+            --border-color: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-gray);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 500;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .form-group .error {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error input {
+            border-color: var(--error-color);
+        }
+        
+        .form-group.success input {
+            border-color: var(--success-color);
+        }
+        
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-color);
+        }
+        
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .message {
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Login</h1>
+        </div>
+        
+        <div class="form-container">
+            <form id="loginForm">
+                <div class="form-group" id="emailGroup">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Seu email">
+                    <small class="error" id="emailError">Por favor, insira um email válido</small>
+                </div>
+                
+                <div class="form-group" id="passwordGroup">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Sua senha">
+                    <small class="error" id="passwordError">A senha deve ter pelo menos 8 caracteres</small>
+                </div>
+                
+                <button type="submit" id="loginButton" class="btn" disabled>Entrar</button>
+                
+                <div class="register-link">
+                    <p>Não tem uma conta? <a href="#">Registre-se</a></p>
+                </div>
+            </form>
+            
+            <div class="message success-message" id="successMessage">
+                Login realizado com sucesso!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos DOM
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailGroup = document.getElementById('emailGroup');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const loginButton = document.getElementById('loginButton');
+        const successMessage = document.getElementById('successMessage');
+        
+        // Funções de validação
+        function validateEmail() {
+            const emailValue = emailInput.value.trim();
+            // Regex para validar email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailValue === '') {
+                showError(emailGroup, emailError, 'Email é obrigatório');
+                return false;
+            } else if (!emailPattern.test(emailValue)) {
+                showError(emailGroup, emailError, 'Formato de email inválido');
+                return false;
+            } else {
+                showSuccess(emailGroup);
+                return true;
+            }
+        }
+        
+        function validatePassword() {
+            const passwordValue = passwordInput.value.trim();
+            
+            if (passwordValue === '') {
+                showError(passwordGroup, passwordError, 'Senha é obrigatória');
+                return false;
+            } else if (passwordValue.length < 8) {
+                showError(passwordGroup, passwordError, 'A senha deve ter pelo menos 8 caracteres');
+                return false;
+            } else {
+                showSuccess(passwordGroup);
+                return true;
+            }
+        }
+        
+        function showError(formGroup, errorElement, message) {
+            formGroup.className = 'form-group error';
+            errorElement.innerText = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function showSuccess(formGroup) {
+            formGroup.className = 'form-group success';
+            const errorElement = formGroup.querySelector('.error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+        
+        function checkFormValidity() {
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            loginButton.disabled = !(isEmailValid && isPasswordValid);
+        }
+        
+        // Event listeners
+        emailInput.addEventListener('input', checkFormValidity);
+        passwordInput.addEventListener('input', checkFormValidity);
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validação final antes de enviar
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            
+            if (isEmailValid && isPasswordValid) {
+                // Aqui você faria a autenticação com o servidor
+                // Para este exemplo, apenas mostramos uma mensagem de sucesso
+                loginForm.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Simulação de redirecionamento após login
+                setTimeout(() => {
+                    alert('Login bem-sucedido! Redirecionando...');
+                    // window.location.href = "dashboard.html";
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

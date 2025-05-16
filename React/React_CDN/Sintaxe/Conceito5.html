@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceito 5</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .componente {
+            border: 2px solid #3498db;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .props-box {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #3498db;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function ListarTarefas() {
+            const [tarefa] = React.useState([
+                "Aprender React",
+                "Estudar componentes",
+                "Praticar JSX"
+            ])
+
+            const [mostrarLista, setMostrarLista] = React.useState(true);
+
+            return (
+                <div className="componente">
+                    <h2>Lista Condicional</h2>
+                    <div className="props-box">
+                        <button onClick={() => setMostrarLista(!mostrarLista)}>
+                            {mostrarLista ? "Esconder" : "Mostrar"} lista
+                        </button>
+                        {mostrarLista && (
+                            <ul>
+                                {tarefa.map((tarefas, index) => (
+                                    <li key={index}> {tarefas}</li>
+                                ))}
+                            </ul>
+                        )
+
+                        }
+                    </div>
+
+                </div>
+
+            )
+        }
+
+        function App() {
+            return (
+                <div>
+                    <ListarTarefas />
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
